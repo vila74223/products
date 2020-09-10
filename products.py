@@ -1,21 +1,17 @@
-########read file############
+import os  # operating system
 products = []
-with open("products.csv", 'r', encoding='utf-8') as f:
-	for line in f:
-		# s = line.strip().split(',')
-		# name = s[0]
-		# price = s[1]
-		# print(s)
-		# s is a list after split
-		# ['name', 'price']
-		# ['banana', '100']
-		# ['apple', '200']
-		# ['straberry', '800']
-		# ['komanatsu', '130'] 
-		# as it has already been split by comma, there are actually two blocks
-		name, price = line.strip().split(',')
-		products.append([name, price])
-		# name, price is a list same as s
+
+if os.path.isfile('products.csv'):
+	print('yeah!')
+	########read file############
+	with open("products.csv", 'r', encoding='utf-8') as f:
+		for line in f:
+			name, price = line.strip().split(',')
+			products.append([name, price])
+			# name, price is a list same as s
+ else:
+	print('No such file.')
+
 print(products)
 
 ########write file/add contents############
