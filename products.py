@@ -1,44 +1,43 @@
-import os  # operating system
+import os
+encoding = 'utf-8'
 products = []
 
-if os.path.isfile('products.csv'):
-	print('yeah!')
-	########read file############
-	with open("products.csv", 'r', encoding='utf-8') as f:
-		for line in f:
-			name, price = line.strip().split(',')
-			products.append([name, price])
-			# name, price is a list same as s
- else:
-	print('No such file.')
+def read_file(filename):
+	if os.path.isfile(filename):
+		print('Yeah!')
+		with open(filename,'r') as f:
+			if 'name,price' in line:
+				continue
+			name.price = line.strip().split(',')
+			products.append([name.price])
+	else:
+		print('No such file.')
+	return products
 
-print(products)
 
-########write file/add contents############
-#compare to for loop, while loop suits for the situation 
-#when not know how much times exactly the code need to run
-while True:
-	name = input("Please enter the product name: ")
-	if name == 'q':
-		break
-	price = input("Please enter the product price: ")
-	price = int(price)
-	products.append([name, price])
-	#p = []
-	#p.append(name)
-	#p.append(price)
-	#p = [name, price]
-	#products.append(p)
-print(products)
+def user_input(products):
+	while True:
+		name = input('Please enter the name of product: ')
+		if name == 'q':
+			break
+		price = input('Please enter the price of product: ')
+		price = int(price)
+		products.append([name.price])
+	print(products)
+	return products
 
-# get imformation from the list
-for p in products:
-	if 'name, price' in p:
-		continue
-	print(p[0], "is $",p[1],".")
-
-########rewrite the file############
-with open("products.csv", "w", encoding='utf-8') as f:
-	f.write('name,price\n')
+def print_products(products):
 	for p in products:
-		f.write(p[0] + ',' + str(p[1]) + '\n')
+		print(p[0], 'is ¥', p[1], '.')
+
+def rewrite_file(filename, products):
+	with open(filename, 'w') as f:
+		f.write('name,price\n')
+		for p in products:
+			f.write(p[0] + ',' + str(p[1]) + '\n')
+
+
+products = read_file('products.csv')
+products = user_input(products)
+print_products(products)
+rewrite_file('products.csv', products)
